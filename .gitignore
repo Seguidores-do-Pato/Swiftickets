@@ -1,0 +1,5 @@
+# Arquivos SQLite
+*.sqlite3
+
+# Diretório de migrações do Django
+/migrations/
