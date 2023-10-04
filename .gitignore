@@ -3,3 +3,4 @@
 
 # Diretório de migrações do Django
 /migrations/
+*/migrations/
