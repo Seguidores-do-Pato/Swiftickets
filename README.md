@@ -32,6 +32,10 @@ Inicie o servidor
 
 O projeto irá abrir em: http://127.0.0.1:8000/
 
+## Informações 
+
+![GitHub issues](https://img.shields.io/github/issues-raw/Seguidores-do-Pato/Swiftickets?color=008000&style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/Seguidores-do-Pato/Swiftickets?label=tamanho%20total&style=for-the-badge)
 
 ## Stack utilizada
 
@@ -39,7 +43,7 @@ O projeto irá abrir em: http://127.0.0.1:8000/
 
 **Back-end:** Django;
 
-**Banco de dados:** Redis, PostgreSQL;
+**Banco de dados:** Redis, PostgreSQL.
 
 
 ## Licença
