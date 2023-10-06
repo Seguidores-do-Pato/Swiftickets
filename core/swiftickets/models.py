@@ -27,6 +27,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(blank=True, default='', unique=True)
     name = models.CharField(max_length=100, blank=True, default='')
     birthday = models.DateField(null=True, blank=True)
+    isEvent = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
@@ -50,3 +51,36 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def get_short_name(self):
         return self.name or self.email.split('@')[0]
+    
+#ticket model
+
+class Ticket(models.Model):
+    ticketType = models.TextChoices(
+        "ticketType",
+        "Show Festival"
+    )
+    ticketState = models.TextChoices(
+        "ticketState",
+        "Open Closed"
+    )
+    brazilStates = models.TextChoices(
+        "brazilStates",
+        "Acre Alagoas Amapá Amazonas Bahia Ceará DistritoFederal EspíritoSanto Goiás Maranhão MatoGrosso MatoGrossodoSul MinasGerais Pará Paraíba Paraná Pernambuco Piauí RiodeJaneiro RioGrandedoNorte RioGrandedoSul Rondônia Roraima SantaCatarina SãoPaulo Sergipe Tocantins"
+    )
+
+    type = models.CharField(max_length=14, choices=ticketType.choices)
+    registrant = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+    state = models.CharField(max_length=14, choices=ticketState.choices, default="Open")
+    uf = models.CharField(max_length=16, choices=brazilStates.choices, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.name)
+
+    def next_state(state):
+        return "Closed"
+
+    class Meta:
+        verbose_name = 'Ticket'
+        verbose_name_plural = 'Tickets'
