@@ -71,6 +71,7 @@ class Ticket(models.Model):
     type = models.CharField(max_length=14, choices=ticketType.choices)
     registrant = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     name = models.CharField(max_length=50)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
     description = models.TextField()
     state = models.CharField(max_length=14, choices=ticketState.choices, default="Open")
     uf = models.CharField(max_length=16, choices=brazilStates.choices, blank=True, null=True)
@@ -84,3 +85,11 @@ class Ticket(models.Model):
     class Meta:
         verbose_name = 'Ticket'
         verbose_name_plural = 'Tickets'
+
+#buying model
+
+class Purchase(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    purchase_date = models.DateTimeField(auto_now_add=True)
