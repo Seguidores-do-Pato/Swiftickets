@@ -26,7 +26,10 @@ class UserManager(UserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(blank=True, default='', unique=True)
     name = models.CharField(max_length=100, blank=True, default='')
+<<<<<<< HEAD
     birthday = models.DateField(null=True, blank=True)
+=======
+>>>>>>> origin
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
