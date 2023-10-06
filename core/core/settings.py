@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'swiftickets',
 ]
 
+AUTH_USER_MODEL = 'swiftickets.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
