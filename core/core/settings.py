@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'swiftickets',
 ]
 
+AUTH_USER_MODEL = 'swiftickets.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -68,6 +70,16 @@ TEMPLATES = [
         },
     },
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://www.amem.com:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
