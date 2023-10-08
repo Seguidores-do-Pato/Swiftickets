@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Purchase | {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Compra de Ingresso</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.ticket.label_tag }}
+            {{ form.ticket }}
+        </div>
+        <div class="mb-3">
+            {{ form.quantity.label_tag }}
+            {{ form.quantity }}
+        </div>
+        <p>Preço do Ingresso: R$ {{ form.ticket.value.price }} </p>
+        <p>Quantidade: {{ form.quantity.value }} </p>
+        <p>Total: R$ {{ form.total_price.value }} </p> {# Exibe o preço total #}
+        <button type="submit" class="btn btn-primary">Comprar</button>
+    </form>
+</div>
+{% endblock %}

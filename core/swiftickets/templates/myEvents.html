@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Eventos |
+{% endblock %}
+{% block content %}
+<form action="" method="get">
+  {{eventFilter.form}}
+  <button type="submit">Pesquisar</button>
+</form>
+<h5 class="m-4">Meus Eventos</h5>
+<table class="table table-striped m-4 " style="width: 100% !important;">
+  <thead>
+    <tr>
+      <th scope="col">Tipo</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Lugar</th>
+      <th scope="col">Data</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Deletar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in events%}
+    <tr>
+      <th scope="row"> {{event.type}} </th>
+      <td>{{event.name}}</td>
+      <td>{{event.description}}</td>
+      <td>{{event.uf}}</td>
+      <td>{{event.created_at}}</td>
+      <td>
+        <a class="btn btn-outline-primary" href="#" role="button">Edit</a>
+      </td>
+      <td>
+        <a class="btn btn-danger" href="#" role="button">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

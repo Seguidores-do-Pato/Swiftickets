@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'swiftickets',
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'swiftickets.User'
