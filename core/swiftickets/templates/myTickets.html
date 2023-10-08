@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+myTickets |
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Meus Ingressos</h2>
+    {% if purchases %}
+    <ul class="list-group">
+        {% for purchase in purchases %}
+        <li class="list-group-item">
+            <h5 class="mb-1"><strong>{{ purchase.ticket.ticket_type }}</strong> - {{ purchase.ticket.event.name }}</h5>
+            <p class="mb-1">Preço: R$ {{ purchase.ticket.price }}</p>
+            <p class="mb-1">Data da Compra: {{ purchase.purchase_date }}</p>
+            <p class="mb-1">Data da Compra: {{purchase.quantity}}</p>
+            <!-- Adicione outros detalhes do ingresso conforme necessário -->
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Você não tem ingressos.</p>
+    {% endif %}
+</div>
+{% endblock %}

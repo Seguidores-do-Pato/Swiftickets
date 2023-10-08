@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+View |
+{% endblock %}
+
+{% block content %}
+<h3 class="text-center">Dados</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Endereço</th>
+            <th scope="col">Data</th>
+            <th scope="col">Comprar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events%} 
+        <tr>
+            <th scope="row"> {{event.type}} </th>
+            <td>{{event.name}}</td>
+            <td>{{event.description}}</td>
+            <td>{{event.uf}}</td>
+            <td>{{event.created_at}}</td>
+            <td>
+                <a class="btn btn-outline-primary" href="{% url 'purchaseTicket' %}" role="button">Comprar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

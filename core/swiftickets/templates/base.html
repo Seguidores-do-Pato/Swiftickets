@@ -5,56 +5,70 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %} | Swiftickets</title>
+    <title>{% block title %}{% endblock %} Swiftickets</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <h2>Swiftickets</h2>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+<body class="d-flex flex-column min-vh-100">
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between p-2">
+                <a href="{% url 'index' %}" class="navbar-brand me-4">
+                    <h2>Swiftickets</h2>
+                </a>
+
+                <ul class="nav d-flex flex-wrap col-lg-auto mb-2 justify-content-center mb-md-0 me-auto">
+                    {% if user.is_owner %}
+                    <li class="nav-item"><a href="{% url 'ownerEvents' %}" class="nav-link px-2 link-body-emphasis link-opacity-25-hover">Meus Eventos</a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="{% url 'eventViewer' %}" class="nav-link px-2 link-body-emphasis link-opacity-25-hover">Eventos</a></li>
+                    {% endif %}
                 </ul>
+
+                <!-- <form class="col-lg-auto me-3" role="search">
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                </form> -->
+
+                {% if user.is_authenticated %}
+                <div class="nav-item dropdown me-3">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img src="{% static '/assets/defaultUserPic.png' %}" alt="UserPic" width="30px"
+                            class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        {% if not user.is_owner %}
+                        <li><a class="dropdown-item" href="{% url 'ownerTicket' %}">Meus Ingressos</a></li>
+                        {% endif %}
+                        {% if user.is_owner %}
+                        <li role="menuitem"><a class="dropdown-item" href="{% url 'eventCreate' %}">Criar Evento</a></li>
+                        {% endif %}
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <a class="btn mx-2" href="{% url 'login' %}">Entrar</a>
+                <a class="btn btn-outline-primary" href="{% url 'register' %}">Registrar</a>
+                {% endif %}
             </div>
         </div>
-    </nav>
+    </header>
     {% block content %}
     {% endblock %}
-    <footer>
         <!-- Footer -->
-        <footer class="text-center text-lg-start bg-dark text-muted">
+        <footer class="text-center text-lg-start bg-dark text-muted mt-auto">
             <!-- Section: Links  -->
-            <hr>
-            <section class="">
-                <div class="container text-center text-md-start mt-5 text-white">
+            <hr class="mb-0">
+            <section class="py-4">
+                <div class="container text-center text-md-start text-white">
                     <!-- Grid row -->
-                    <div class="row mt-3">
+                    <div class="row">
                         <!-- Grid column -->
                         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                             <!-- Content -->
@@ -131,7 +145,6 @@
 
         </footer>
         <!-- Footer -->
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
