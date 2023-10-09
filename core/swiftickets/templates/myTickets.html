@@ -5,7 +5,7 @@ myTickets |
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <h2 class="mb-4">Meus Ingressos</h2>
     {% if purchases %}
     <ul class="list-group">
@@ -15,6 +15,7 @@ myTickets |
             <p class="mb-1">Preço: R$ {{ purchase.ticket.price }}</p>
             <p class="mb-1">Data da Compra: {{ purchase.purchase_date }}</p>
             <p class="mb-1">Data da Compra: {{purchase.quantity}}</p>
+            <a class="btn btn-outline-primary" href="{% url 'edit_ticket' purchase.id%}" role="button">Transferir</a>
             <!-- Adicione outros detalhes do ingresso conforme necessário -->
         </li>
         {% endfor %}

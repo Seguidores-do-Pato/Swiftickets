@@ -11,4 +11,6 @@ urlpatterns = [
     path('event', views.eventViewer, name='eventViewer'),
     path('event/purchase/', views.purchaseTicket, name='purchaseTicket'),
     path('tickets/',views.ownerTicket, name="ownerTicket"),
+    path('edit_ticket/<int:pk>/', views.editTicket, name='edit_ticket'),
+    path('suporte/',views.editTicket, name="maxEdit"),
 ]
