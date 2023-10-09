@@ -18,3 +18,8 @@ class PurchaseForm(ModelForm):
     class Meta:
         model = Purchase
         fields = ['ticket', 'quantity', 'total_price']
+
+class EditPurchase(ModelForm):
+    class Meta:
+        model = Purchase
+        fields = ['user']

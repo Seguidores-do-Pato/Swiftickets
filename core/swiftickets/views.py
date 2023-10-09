@@ -3,7 +3,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from .models import *
-from .forms import CreateUserForm, EventForm, PurchaseForm
+from .forms import CreateUserForm, EventForm, PurchaseForm, EditPurchase
 from django.contrib import messages
 from .filters import EventsFilter
 
@@ -110,3 +110,23 @@ def ownerTicket(request):
 
     context = {'purchases': purchases}
     return render(request, 'myTickets.html', context)
+
+@login_required
+def editTicket(request, pk):
+    purchase = Purchase.objects.get(id=pk)
+
+    if purchase.user.num_edit >= 3:
+        return render(request, 'maxTransfer.html')
+
+    if request.method == 'POST':
+        form = EditPurchase(request.POST, instance=purchase)
+        if form.is_valid():
+            form.save()
+            purchase.user.num_edit += 1
+            purchase.user.save()
+            return redirect('ownerTicket')
+    else:
+        form = EditPurchase(instance=purchase)
+
+    context = {'form': form}
+    return render(request, 'editTicket.html', context)

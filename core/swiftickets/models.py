@@ -31,6 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     cpf = models.CharField(max_length=14, blank=True, default='')
     birthday = models.DateField(null=True, blank=True)
     is_owner = models.BooleanField(default=False)
+    num_edit = models.PositiveIntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
