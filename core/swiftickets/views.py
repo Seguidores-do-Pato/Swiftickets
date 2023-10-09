@@ -60,13 +60,13 @@ def ownerEvents(request):
 
 @login_required
 def eventCreate(request):
-    user = request.user 
+    user = request.user
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            event = form.save()
-            event.registrant = user
-            event.save()
+            event = form.save(commit=False) 
+            event.registrant = user  
+            event.save()  
             return redirect('ownerEvents')
     else:
         form = EventForm()

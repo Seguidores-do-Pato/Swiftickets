@@ -1,5 +1,103 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>TESTE</h1>
+
+<head>
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        .hero-section {
+            height: 500px;
+            color: #383838;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .feature-section {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #007bff;
+        }
+
+        .event-section {
+            background-color: #ffffff;
+            padding: 50px 0;
+        }
+
+        .footer-section {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero-section">
+        <h1>Swiftickets</h1>
+        <p>Seu Portal de Eventos</p>
+        {% if not user.is_owner %}
+        <a href="{% url 'eventViewer' %}" class="btn btn-primary btn-lg mx-auto" style="width: 20%;">Explorar
+            Eventos</a>
+        {% endif %}
+        {% if user.is_owner %}
+        <a href="{% url 'ownerEvents' %}" class="btn btn-primary btn-lg mx-auto" style="width: 20%;">Meus Eventos</a>
+        {% endif %}
+    </div>
+
+    <div class="feature-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fas fa-calendar-alt feature-icon"></i>
+                    <h3>Eventos Premium</h3>
+                    <p>Descubra eventos exclusivos e inesquecíveis.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-ticket-alt feature-icon"></i>
+                    <h3>Ingressos Confiáveis</h3>
+                    <p>Compre ingressos seguros para seus eventos favoritos.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-headphones feature-icon"></i>
+                    <h3>Experiência Premium</h3>
+                    <p>Desfrute de shows e concertos com qualidade premium.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="event-section">
+        <div class="container">
+            <h2>Eventos Futuros</h2>
+        </div>
+    </div>
+</body>
 {% endblock %}
