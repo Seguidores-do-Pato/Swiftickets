@@ -9,34 +9,60 @@ Eventos |
   <button type="submit">Pesquisar</button>
 </form>
 <h5 class="text-center">Meus Eventos</h5>
-<table class="table table-striped" style="width: 100% !important;">
-  <thead>
-    <tr>
-      <th scope="col">Tipo</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Lugar</th>
-      <th scope="col">Data</th>
-      <th scope="col">Editar</th>
-      <th scope="col">Deletar</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for event in events%}
-    <tr>
-      <th scope="row"> {{event.type}} </th>
-      <td>{{event.name}}</td>
-      <td>{{event.description}}</td>
-      <td>{{event.uf}}</td>
-      <td>{{event.created_at}}</td>
-      <td>
-        <a class="btn btn-outline-primary" href="#" role="button">Edit</a>
-      </td>
-      <td>
-        <a class="btn btn-danger" href="#" role="button">Delete</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<form method="post" action="">
+  {% csrf_token %}
+  <table class="table table-striped" style="width: 100% !important;">
+    <thead>
+      <tr>
+        <th scope="col">Tipo</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Lugar</th>
+        <th scope="col">Data</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Deletar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr>
+        <th scope="row"> {{event.type}} </th>
+        <td>{{event.name}}</td>
+        <td>{{event.description}}</td>
+        <td>{{event.uf}}</td>
+        <td>{{event.created_at}}</td>
+        <td>
+          <a class="btn btn-outline-primary" href="#" role="button">Edit</a>
+        </td>
+        <td>
+          <!-- Adicionando modal de confirmação para deletar -->
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ event.id }}">
+            Deletar
+          </button>
+        </td>
+      </tr>
+
+      <!-- Modal de confirmação para deletar -->
+      <div class="modal fade" id="deleteModal{{ event.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ event.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel{{ event.id }}">Confirmação de Exclusão</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Tem certeza de que deseja excluir o evento "{{ event.name }}"?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" name="event_id_to_delete" value="{{ event.id }}" class="btn btn-danger">Confirmar Exclusão</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </tbody>
+  </table>
+</form>
 {% endblock %}

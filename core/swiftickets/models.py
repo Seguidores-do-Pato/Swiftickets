@@ -127,3 +127,6 @@ class Purchase(models.Model):
     class Meta:
         verbose_name = 'Purchase'
         verbose_name_plural = 'Purchases'
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

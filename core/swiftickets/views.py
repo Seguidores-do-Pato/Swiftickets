@@ -1,9 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from .models import *
-from .forms import CreateUserForm, EventForm, PurchaseForm, EditPurchase
+from .forms import CreateUserForm, EventForm, PurchaseForm, EditPurchase, EditAccount
 from django.contrib import messages
 from .filters import EventsFilter
 
@@ -51,6 +51,14 @@ def loginUser(request):
 def ownerEvents(request):
     user = request.user 
     events = Event.objects.filter(registrant=user)
+
+    if request.method == 'POST':
+        event_id_to_delete = request.POST.get('event_id_to_delete')
+        if event_id_to_delete:
+            event = Event.objects.all()
+            event.delete()
+            return redirect('/')
+
 
     eventFilter = EventsFilter(request.GET, queryset=events)
     events = eventFilter.qs
@@ -130,3 +138,23 @@ def editTicket(request, pk):
 
     context = {'form': form}
     return render(request, 'editTicket.html', context)
+
+def profile(request, pk):
+    user = User.objects.get(id=pk)
+
+    context = {'user': user}
+    return render(request, 'profile.html', context)
+
+@login_required
+def edit_profile(request, pk):
+    user = User.objects.get(id=pk)
+
+    if request.method == 'POST':
+        form = EditAccount(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = EditAccount(instance=user)
+
+    return render(request, 'editAccount.html', {'form': form})

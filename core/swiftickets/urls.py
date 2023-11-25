@@ -13,4 +13,6 @@ urlpatterns = [
     path('tickets/',views.ownerTicket, name="ownerTicket"),
     path('edit_ticket/<int:pk>/', views.editTicket, name='edit_ticket'),
     path('suporte/',views.editTicket, name="maxEdit"),
+    path('profile/<int:pk>', views.profile, name="profile"),
+    path('edit/<int:pk>', views.edit_profile, name="edit_profile"),
 ]
