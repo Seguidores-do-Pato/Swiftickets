@@ -39,7 +39,7 @@
                             class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile' user.id %}">Perfil</a></li>
                         {% if not user.is_owner %}
                         <li><a class="dropdown-item" href="{% url 'ownerTicket' %}">Meus Ingressos</a></li>
                         {% endif %}

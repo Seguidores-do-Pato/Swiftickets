@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Perfil |
+{% endblock %}
+{% block content %}
+<h2>Editar Perfil</h2>
+    
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar Alterações</button>
+</form>
+{% endblock %}

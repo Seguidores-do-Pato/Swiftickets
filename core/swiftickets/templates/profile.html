@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Perfil |
+{% endblock %}
+{% block content %}
+
+<div class="row mx-auto" style="width: 50%;">
+    <div class="col-md">
+        <div class="card card-body">
+            <h2 style="text-align: center;">Dados</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h5 class="card-title" style="text-align: center;">Nome: </h5>
+                    <p style="text-align: center;">{{user.name}}</p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-title" style="text-align: center;">CPF: </h5>
+                    <p style="text-align: center;">{{user.cpf}}</p>
+                </li>
+                <li class="list-group-item">
+                    <h5 class="card-title" style="text-align: center;">Email: </h5>
+                    <p style="text-align: center;">{{user.email}}</p>
+                </li>
+            </ul>
+            <a class="btn btn-outline-dark my-2 " href="{% url 'edit_profile' user.id%}">Editar</a>
+
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Deletar Conta
+            </button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Deletar Conta</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5>Deseja deletar sua conta, {{user.name}}? Essa ação é permanente!</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                {{form}}
+                                <a type="button" class="btn" data-bs-dismiss="modal">Cancelar</a>
+                                <input class="btn btn-outline-danger" type="submit" value="Deletar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

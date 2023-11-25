@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Event, Purchase, Ticket
+from .models import User, Event, Purchase, Ticket, UserProfile
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -23,3 +23,8 @@ class EditPurchase(ModelForm):
     class Meta:
         model = Purchase
         fields = ['user']
+
+class EditAccount(forms.ModelForm):
+    class Meta:
+        model= User
+        fields= ['name', 'cpf']
